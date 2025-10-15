@@ -6,17 +6,16 @@ using UnityEngine;
 
 public class Chroma : Layer2
 {
-    public List<OptionData> data = new List<OptionData>();
+    public List<OptionData> Data = new List<OptionData>();
 
     void Awake()
     {
-
         SaveData();
     }
 
     void SetUp(String name, Enum type, int value)
     {
-        data.Add(new OptionData(name, type, value));
+        Data.Add(new OptionData(name, type, value));
     }
 
     void SaveData()

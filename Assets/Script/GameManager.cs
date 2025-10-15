@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private AIGirl aiGirl;
     private Chroma chroma;
+    private Notflex notflex;
 
     void Start()
     {
@@ -14,7 +15,9 @@ public class GameManager : MonoBehaviour
 
         Object = new GameObject("Chroma");
         chroma = Object.AddComponent<Chroma>();
-        chroma.aiGirl = aiGirl;
+
+        Object = new GameObject("Notflex");
+        notflex = Object.AddComponent<Notflex>();
 
         /*aiGirl.OptionAIHandler(Moodtype.Happy, 15550);
         Debug.Log("Happy: " + aiGirl.Happy);*/
@@ -23,7 +26,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Happy: " + aiGirl.Happy);*/
 
         //check chroma data
-        /*foreach (var data in chroma.data)
+        /*foreach (var data in chroma.Data)
         {
             Debug.Log($"{data.name}, {data.type}, {data.value}");
         }*/
