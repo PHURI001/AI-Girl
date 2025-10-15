@@ -1,14 +1,31 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public AIGirl aiGirl;
+    private AIGirl aiGirl;
+    private Chroma chroma;
+
     void Start()
     {
-        aiGirl = Instantiate(aiGirl);
-        aiGirl = GetComponent<AIGirl>();
+        GameObject Object = new GameObject("AIGirl");
+        aiGirl = Object.AddComponent<AIGirl>();
 
-        aiGirl.OptionAIHandler(Moodtype.Happy, 15550);
-        Debug.Log("Happy: " + aiGirl.Happy);
+        Object = new GameObject("Chroma");
+        chroma = Object.AddComponent<Chroma>();
+        chroma.aiGirl = aiGirl;
+
+        /*aiGirl.OptionAIHandler(Moodtype.Happy, 15550);
+        Debug.Log("Happy: " + aiGirl.Happy);*/
+
+        /*chroma.OptionAIHandler(Moodtype.Happy, 15550);
+        Debug.Log("Happy: " + aiGirl.Happy);*/
+
+        //check chroma data
+        /*foreach (var data in chroma.data)
+        {
+            Debug.Log($"{data.name}, {data.type}, {data.value}");
+        }*/
     }
 }

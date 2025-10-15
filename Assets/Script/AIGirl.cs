@@ -131,4 +131,9 @@ public class AIGirl : MonoBehaviour
             }
         }
     }
+
+    void Test()
+    {
+        Debug.Log("AiGirl Test");
+    }
 }
