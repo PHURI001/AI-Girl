@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum MovieType
 {
@@ -15,43 +16,43 @@ public enum MovieType
 
 public class Notflex : Layer2
 {
-    public void Watching(Enum movieType)
+    public void Watching(int movieType)
     {
         switch (movieType)
         {
-            case MovieType.Comedy:
+            case 0:  //Comedy
                 OptionAIHandler(ProgressType.Communication, 1);
-                OptionAIHandler(Moodtype.Fun, 15);
+                //OptionAIHandler(Moodtype.Fun, 15);
                 break;
-            case MovieType.Romance:
+            case 1:  //Romance
                 OptionAIHandler(ProgressType.Emotional, 1);
-                OptionAIHandler(Moodtype.Fun, 10);
+                OptionAIHandler(Needytype.Fun, 10);
                 OptionAIHandler(Moodtype.Flirty, 5);
                 break;
-            case MovieType.Horror:
+            case 2:  //Horror
                 OptionAIHandler(Moodtype.Happy, -10);
                 OptionAIHandler(Moodtype.Sad, 10);
-                OptionAIHandler(Moodtype.Fun, 20);
+                OptionAIHandler(Needytype.Fun, 20);
                 break;
-            case Moodtype.Drama:
+            case 3:  //Drama
                 OptionAIHandler(ProgressType.Emotional, 1);
                 OptionAIHandler(Moodtype.Angry, 10);
-                OptionAIHandler(Moodtype.Fun, 15);
+                OptionAIHandler(Needytype.Fun, 15);
                 break;
-            case MovieType.Fantasy:
+            case 4:  //Fantasy
                 OptionAIHandler(ProgressType.Creative, 1);
-                OptionAIHandler(Moodtype.Fun, 10);
+                OptionAIHandler(Needytype.Fun, 10);
                 OptionAIHandler(Moodtype.Happy, 10);
                 break;
-            case MovieType.Mystery:
+            case 5:  //Mystery
                 OptionAIHandler(ProgressType.Cognitive, 1);
                 OptionAIHandler(Moodtype.Confident, 10);
-                OptionAIHandler(Moodtype.Fun, 10);
+                OptionAIHandler(Needytype.Fun, 10);
                 break;
-            case MovieType.Documentary:
+            case 6:  //Documentary
                 OptionAIHandler(ProgressType.Data, 1);
                 OptionAIHandler(Moodtype.Confident, 5);
-                OptionAIHandler(Moodtype.Fun, 5);
+                OptionAIHandler(Needytype.Fun, 5);
                 break;
         }
     }

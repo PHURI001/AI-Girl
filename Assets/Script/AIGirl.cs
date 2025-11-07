@@ -6,14 +6,13 @@ public enum Moodtype
     Angry,
     Confident,
     Flirty,
-    Fun,
     Happy,
-    Sad,
-    Drama
+    Sad
 }
 
 public enum Needytype
 {
+    Fun,
     Hunger,
     Energy,
     Hygiene
@@ -81,9 +80,6 @@ public class AIGirl : MonoBehaviour
                 case Moodtype.Flirty:
                     Flirty += value;
                     break;
-                case Moodtype.Fun:
-                    Fun += value;
-                    break;
                 case Moodtype.Happy:
                     Happy += value;
                     break;
@@ -104,6 +100,9 @@ public class AIGirl : MonoBehaviour
                     break;
                 case Needytype.Hygiene:
                     Hygiene += value;
+                    break;
+                case Needytype.Fun:
+                    Fun += value;
                     break;
             }
         }
@@ -133,7 +132,7 @@ public class AIGirl : MonoBehaviour
         }
     }
 
-    void Test()
+    private void Start()
     {
         Debug.Log("AiGirl Test");
     }

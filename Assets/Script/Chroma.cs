@@ -2,11 +2,19 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
 
 public class Chroma : Layer2
 {
     public List<OptionData> Data = new List<OptionData>();
+
+    public Canvas HomeCanvas;
+    public TMP_InputField HomeInput;
+
+    public Canvas SearchCanvas;
+    public TMP_InputField SearchInput;
 
     void Awake()
     {
@@ -61,5 +69,24 @@ public class Chroma : Layer2
         SetUp("loyal", ProgressType.Emotional, 1);
         SetUp("respect", ProgressType.Emotional, 1);
         SetUp("trust", ProgressType.Emotional, 1);
+    }
+
+    public void Search()
+    {
+        if (HomeInput.text != "")
+        {
+            HomeCanvas.enabled = false;
+            SearchCanvas.enabled = true;
+
+            SearchInput.text = HomeInput.text;
+        }
+    }
+
+    public void Home()
+    {
+        HomeCanvas.enabled = true;
+        SearchCanvas.enabled = false;
+
+        HomeInput.text = "";
     }
 }
