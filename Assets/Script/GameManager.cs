@@ -27,4 +27,30 @@ public class GameManager : MonoBehaviour
             Debug.Log($"{data.name}, {data.type}, {data.value}");
         }*/
     }
+    public static GameManager Instance;
+    private int ActivityPoint = 0;
+    private int day = 1;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public void AddActivityPoint()
+    {
+        ActivityPoint += 1;
+        Debug.Log("Activity Point: " + ActivityPoint);
+        Debug.Log("Day: " + day);
+    }
+    void Update()
+    {
+        if (ActivityPoint == 5)
+        {
+            day += 1;
+            ActivityPoint = 0;
+        }
+    }
+
+    public void SetDay()
+    {
+        //later
+    }
 }
