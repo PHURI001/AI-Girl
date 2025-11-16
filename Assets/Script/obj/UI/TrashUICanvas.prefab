@@ -548,7 +548,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
-      value: TrashUI
+      value: Trash
       objectReference: {fileID: 0}
     - target: {fileID: 2732130012052422780, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
@@ -561,6 +561,18 @@ PrefabInstance:
     - target: {fileID: 3841662424084525360, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Color.r
       value: 0.12551618
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5483127777723604367}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeleteWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Trash, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5830370155080632337, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_AnchoredPosition.x

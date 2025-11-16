@@ -14,45 +14,45 @@ public enum MovieType
     Documentary
 }
 
-public class Notflex : Layer2
+public class Notflex : Application
 {
-    public void Watching(int movieType)
+    public void watching(int movieType)
     {
         switch (movieType)
         {
             case 0:  //Comedy
-                OptionAIHandler(ProgressType.Communication, 1);
-                //OptionAIHandler(Moodtype.Fun, 15);
+                aiChangeStats(ProgressType.Communication, 1);
+                aiChangeStats(NeedyType.Fun, 15);
                 break;
             case 1:  //Romance
-                OptionAIHandler(ProgressType.Emotional, 1);
-                OptionAIHandler(Needytype.Fun, 10);
-                OptionAIHandler(Moodtype.Flirty, 5);
+                aiChangeStats(ProgressType.Emotional, 1);
+                aiChangeStats(NeedyType.Fun, 10);
+                aiChangeStats(MoodType.Flirty, 5);
                 break;
             case 2:  //Horror
-                OptionAIHandler(Moodtype.Happy, -10);
-                OptionAIHandler(Moodtype.Sad, 10);
-                OptionAIHandler(Needytype.Fun, 20);
+                aiChangeStats(MoodType.Happy, -10);
+                aiChangeStats(MoodType.Sad, 10);
+                aiChangeStats(NeedyType.Fun, 20);
                 break;
             case 3:  //Drama
-                OptionAIHandler(ProgressType.Emotional, 1);
-                OptionAIHandler(Moodtype.Angry, 10);
-                OptionAIHandler(Needytype.Fun, 15);
+                aiChangeStats(ProgressType.Emotional, 1);
+                aiChangeStats(MoodType.Angry, 10);
+                aiChangeStats(NeedyType.Fun, 15);
                 break;
             case 4:  //Fantasy
-                OptionAIHandler(ProgressType.Creative, 1);
-                OptionAIHandler(Needytype.Fun, 10);
-                OptionAIHandler(Moodtype.Happy, 10);
+                aiChangeStats(ProgressType.Creative, 1);
+                aiChangeStats(NeedyType.Fun, 10);
+                aiChangeStats(MoodType.Happy, 10);
                 break;
             case 5:  //Mystery
-                OptionAIHandler(ProgressType.Cognitive, 1);
-                OptionAIHandler(Moodtype.Confident, 10);
-                OptionAIHandler(Needytype.Fun, 10);
+                aiChangeStats(ProgressType.Cognitive, 1);
+                aiChangeStats(MoodType.Confident, 10);
+                aiChangeStats(NeedyType.Fun, 10);
                 break;
             case 6:  //Documentary
-                OptionAIHandler(ProgressType.Data, 1);
-                OptionAIHandler(Moodtype.Confident, 5);
-                OptionAIHandler(Needytype.Fun, 5);
+                aiChangeStats(ProgressType.Data, 1);
+                aiChangeStats(MoodType.Confident, 5);
+                aiChangeStats   (NeedyType.Fun, 5);
                 break;
         }
     }

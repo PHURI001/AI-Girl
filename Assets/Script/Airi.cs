@@ -12,7 +12,7 @@ enum RoomType
     BedRoom,
     Kitchen
 }
-public class Airi : Layer2
+public class Airi : Application
 {
     public Canvas CommandCanvas;
     public Canvas MoodCanvas;
@@ -54,12 +54,12 @@ public class Airi : Layer2
     public TextMeshProUGUI CommandListText;
     private void Start()
     {
-        CommandListSetUp(currentRoom);
+        commandListSetUp(currentRoom);
         TestTextCheckRoom.text = currentRoom.ToString();
         Debug.Log(currentRoom);
     }
 
-    public void MoodSwitch()
+    public void MoodShow()
     {
         if (MoodCanvas.enabled)
         {
@@ -68,6 +68,29 @@ public class Airi : Layer2
         else
         {
             MoodCanvas.enabled = true;
+        }
+    }
+    public void NeedyShow()
+    {
+        if (NeedyCanvas.enabled)
+        {
+            NeedyCanvas.enabled = false;
+        }
+        else
+        {
+            NeedyCanvas.enabled = true;
+        }
+    }
+
+    public void SkillShow()
+    {
+        if (SkillCanvas.enabled)
+        {
+            SkillCanvas.enabled = false;
+        }
+        else
+        {
+            SkillCanvas.enabled = true;
         }
     }
 
@@ -83,7 +106,7 @@ public class Airi : Layer2
         }
     }
 
-    private void CommandListSetUp(RoomType room)
+    private void commandListSetUp(RoomType room)
     {
         if (room == RoomType.LivingRoom)
         {
@@ -100,30 +123,6 @@ public class Airi : Layer2
         else if (room == RoomType.Kitchen)
         {
             CommandListText.text = "Commands:\nAiri.MoveTo(\"LivingRoom\")\nAiri.Yummy(http://)";
-        }
-    }
-
-    public void NeedySwitch()
-    {
-        if (NeedyCanvas.enabled)
-        {
-            NeedyCanvas.enabled = false;
-        }
-        else
-        {
-            NeedyCanvas.enabled = true;
-        }
-    }
-
-    public void SkillSwitch()
-    {
-        if (SkillCanvas.enabled)
-        {
-            SkillCanvas.enabled = false;
-        }
-        else
-        {
-            SkillCanvas.enabled = true;
         }
     }
 
@@ -148,10 +147,6 @@ public class Airi : Layer2
         SkillText[5].GetComponent<TextMeshProUGUI>().text = "TrustBonding: " + aiGirl.TrustBonding;
     }
 
-    public void AddTrash()
-    {
-        //later
-    }
     public void CommandActive()
     {
         bool commandFound = false;
@@ -219,24 +214,24 @@ public class Airi : Layer2
                 {
                     currentRoom = RoomType.LivingRoom;
                 }
-                CommandListSetUp(currentRoom);
+                commandListSetUp(currentRoom);
             }
             else if (Input.text.Contains("WatchTV"))
             {
-                OptionAIHandler(Needytype.Fun, 15);
+                aiChangeStats(NeedyType.Fun, 15);
             }
             else if (Input.text.Contains("TakeShower"))
             {
-                OptionAIHandler(Needytype.Hygiene, 20);
-                GameManager.Instance.AddActivityPoint();
+                aiChangeStats(NeedyType.Hygiene, 20);
+                GameManager.Instance.DoActivity();
             }
             else if (Input.text.Contains("Sleep"))
             {
-                OptionAIHandler(Needytype.Energy, 40);
+                aiChangeStats(NeedyType.Energy, 40);
             }
             else if (Input.text.Contains("Yummy"))
             {
-                OptionAIHandler(Needytype.Hunger, 30);
+                aiChangeStats(NeedyType.Hunger, 30);
             }
             else if (Input.text.Contains("PickUpItem"))
             {
@@ -244,5 +239,15 @@ public class Airi : Layer2
             }
         }
         TestTextCheckRoom.text = currentRoom.ToString();
+    }
+
+    public void AddTrash()
+    {
+        //later
+    }
+
+    public void RemoveTrash()
+    {
+        //later
     }
 }

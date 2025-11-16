@@ -5360,6 +5360,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8274474576010512125}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeleteWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Chroma, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7566590204429843859, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5471,7 +5483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e0e5641c1938545a0cd61fce476a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chroma
-  aiGirl: {fileID: 6295720986722226900, guid: af03ec1e9c4374b41bd7f15dd5e66e47, type: 3}
+  AiGirl: {fileID: 0}
   Data:
   - word: art
     type: 2

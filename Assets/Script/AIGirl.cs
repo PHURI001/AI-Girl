@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum Moodtype
+public enum MoodType
 {
     Angry,
     Confident,
@@ -10,7 +10,7 @@ public enum Moodtype
     Sad
 }
 
-public enum Needytype
+public enum NeedyType
 {
     Fun,
     Hunger,
@@ -65,43 +65,43 @@ public class AIGirl : MonoBehaviour
     public int Emotional { get { return emotional; } private set { emotional = Mathf.Clamp(value, 0, 10); } }
     private int trustBonding;
     public int TrustBonding { get { return trustBonding; } private set { trustBonding = Mathf.Clamp(value, 0, 10); } }
-    public void OptionAIHandler(Enum attributeType, int value)
+    public void AiChangeStats(Enum attributeType, int value)
     {
-        if (attributeType is Moodtype mood)
+        if (attributeType is MoodType mood)
         {
             switch (mood)
             {
-                case Moodtype.Angry:
+                case MoodType.Angry:
                     Anger += value;
                     break;
-                case Moodtype.Confident:
+                case MoodType.Confident:
                     Confidence += value;
                     break;
-                case Moodtype.Flirty:
+                case MoodType.Flirty:
                     Flirty += value;
                     break;
-                case Moodtype.Happy:
+                case MoodType.Happy:
                     Happy += value;
                     break;
-                case Moodtype.Sad:
+                case MoodType.Sad:
                     Sad += value;
                     break;
             }
         }
-        else if (attributeType is Needytype needy)
+        else if (attributeType is NeedyType needy)
         {
             switch (needy)
             {
-                case Needytype.Hunger:
+                case NeedyType.Hunger:
                     Hunger += value;
                     break;
-                case Needytype.Energy:
+                case NeedyType.Energy:
                     Energy += value;
                     break;
-                case Needytype.Hygiene:
+                case NeedyType.Hygiene:
                     Hygiene += value;
                     break;
-                case Needytype.Fun:
+                case NeedyType.Fun:
                     Fun += value;
                     break;
             }
@@ -130,10 +130,5 @@ public class AIGirl : MonoBehaviour
                     break;
             }
         }
-    }
-
-    private void Start()
-    {
-        Debug.Log("AiGirl Test");
     }
 }

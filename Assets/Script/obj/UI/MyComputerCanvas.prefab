@@ -8,9 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_Name
+      value: MyComputer
+      objectReference: {fileID: 0}
     - target: {fileID: 2732130012052422780, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
-      value: TestWindowCanvas
+      value: MyComputerCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4839743693102881325}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeleteWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MyComputer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7566590204429843859, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Pivot.x
@@ -95,5 +111,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4839743693102881325}
   m_SourcePrefab: {fileID: 100100000, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+--- !u!1 &1349817694899961895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+  m_PrefabInstance: {fileID: 500334558556252002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4839743693102881325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349817694899961895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f76695162ed55147820d82740ac5389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MyComputer

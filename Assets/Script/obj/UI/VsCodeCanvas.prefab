@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_Name
+      value: VsCode
+      objectReference: {fileID: 0}
     - target: {fileID: 2732130012052422780, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
       value: VsCodeCanvas
@@ -15,6 +19,18 @@ PrefabInstance:
     - target: {fileID: 3841662424084525360, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Color.g
       value: 0.4448824
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2767958182009865643}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeleteWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VsCode, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7566590204429843859, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Pivot.x
@@ -99,5 +115,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2767958182009865643}
   m_SourcePrefab: {fileID: 100100000, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+--- !u!1 &6526687925204357462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+  m_PrefabInstance: {fileID: 5681708458634081811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2767958182009865643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526687925204357462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cc42ee77dc62949bcfdbacc1bbc479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VsCode

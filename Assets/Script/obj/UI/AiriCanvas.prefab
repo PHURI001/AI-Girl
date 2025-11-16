@@ -1969,7 +1969,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3125940463372960917}
         m_TargetAssemblyTypeName: Airi, Assembly-CSharp
-        m_MethodName: SkillSwitch
+        m_MethodName: NeedyShow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3361,7 +3361,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3125940463372960917}
         m_TargetAssemblyTypeName: Airi, Assembly-CSharp
-        m_MethodName: NeedySwitch
+        m_MethodName: SkillShow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4470,7 +4470,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3125940463372960917}
         m_TargetAssemblyTypeName: Airi, Assembly-CSharp
-        m_MethodName: MoodSwitch
+        m_MethodName: MoodShow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4865,6 +4865,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3125940463372960917}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeleteWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3977055874044461917, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Airi, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7566590204429843859, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4982,7 +4994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343fae626f0bc7a4c98108e36db21103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Airi
-  aiGirl: {fileID: 6295720986722226900, guid: af03ec1e9c4374b41bd7f15dd5e66e47, type: 3}
   CommandCanvas: {fileID: 5957354987677030292}
   MoodCanvas: {fileID: 8703794792237478201}
   NeedyCanvas: {fileID: 4939282903933311709}

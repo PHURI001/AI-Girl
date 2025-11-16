@@ -11,13 +11,13 @@ using UnityEngine.UI;
 [System.Serializable]
 public class WordData
 {
-    public string word;
-    public ProgressType type;
-    public int value;
+    public string Word;
+    public ProgressType Type;
+    public int Value;
     //public String Description;
 }
 
-public class Chroma : Layer2
+public class Chroma : Application
 {
     public List<WordData> Data;
 
@@ -73,7 +73,7 @@ public class Chroma : Layer2
         }
         for (int i = 0; i < Data.Count; i++)
         {
-            if (Data[i].word.ToLower() == input)
+            if (Data[i].Word.ToLower() == input)
             {
                 found = true;
             }
@@ -101,30 +101,6 @@ public class Chroma : Layer2
     public TextMeshProUGUI WebDetectedText;
     public void DetectWord()
     {
-        //detect words that start with the same letter as front input
-        /*HomeDetectedText.GetComponent<TextMeshProUGUI>().text = "";
-
-        for (int i = 0; i < Data.Count; i++)
-        {
-            if (HomeInput.text.Length > 0 && char.ToLower(HomeInput.text[0]) == char.ToLower(Data[i].word[0]))
-            {
-                if (HomeDetectedText.GetComponent<TextMeshProUGUI>().text.Length == 0)
-                {
-                    HomeDetectedText.GetComponent<TextMeshProUGUI>().text += "Words detected: ";
-                }
-                HomeDetectedText.GetComponent<TextMeshProUGUI>().text += $"{Data[i].word}, ";
-            }
-            if (SearchInput.text.Length > 0 && char.ToLower(SearchInput.text[0]) == char.ToLower(Data[i].word[0]))
-            {
-                if (WebDetectedText.GetComponent<TextMeshProUGUI>().text.Length == 0)
-                {
-                    WebDetectedText.GetComponent<TextMeshProUGUI>().text += "Words detected: ";
-                }
-                WebDetectedText.GetComponent<TextMeshProUGUI>().text += $"{Data[i].word}, ";
-            }
-        }*/
-
-        //detect words that start with the same string as all input
         HomeDetectedText.GetComponent<TextMeshProUGUI>().text = "";
         WebDetectedText.GetComponent<TextMeshProUGUI>().text = "";
 
@@ -134,14 +110,14 @@ public class Chroma : Layer2
             {
                 int len = HomeInput.text.Length;
                 string inputPart = HomeInput.text.Substring(0, len).ToLower();
-                string wordPart = Data[i].word.Length >= len ? Data[i].word.Substring(0, len).ToLower() : "";
+                string wordPart = Data[i].Word.Length >= len ? Data[i].Word.Substring(0, len).ToLower() : "";
 
                 if (inputPart == wordPart)
                 {
                     if (HomeDetectedText.GetComponent<TextMeshProUGUI>().text.Length == 0)
                         HomeDetectedText.GetComponent<TextMeshProUGUI>().text = "Words detected: ";
 
-                    HomeDetectedText.GetComponent<TextMeshProUGUI>().text += Data[i].word + ", ";
+                    HomeDetectedText.GetComponent<TextMeshProUGUI>().text += Data[i].Word + ", ";
                 }
             }
 
@@ -149,14 +125,14 @@ public class Chroma : Layer2
             {
                 int len = SearchInput.text.Length;
                 string inputPart = SearchInput.text.Substring(0, len).ToLower();
-                string wordPart = Data[i].word.Length >= len ? Data[i].word.Substring(0, len).ToLower() : "";
+                string wordPart = Data[i].Word.Length >= len ? Data[i].Word.Substring(0, len).ToLower() : "";
 
                 if (inputPart == wordPart)
                 {
                     if (WebDetectedText.GetComponent<TextMeshProUGUI>().text.Length == 0)
                         WebDetectedText.GetComponent<TextMeshProUGUI>().text = "Words detected: ";
 
-                    WebDetectedText.GetComponent<TextMeshProUGUI>().text += Data[i].word + ", ";
+                    WebDetectedText.GetComponent<TextMeshProUGUI>().text += Data[i].Word + ", ";
                 }
             }
         }
