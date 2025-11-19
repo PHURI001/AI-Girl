@@ -33,8 +33,8 @@ public class AIGirl : MonoBehaviour
     // Mood levels
     private int anger;
     public int Anger { get { return anger; } private set { anger = Mathf.Clamp(value, 0, 100); } }
-    private int confidence;
-    public int Confidence { get { return confidence; } private set { confidence = Mathf.Clamp(value, 0, 100); } }
+    private int confident;
+    public int Confident { get { return confident; } private set { confident = Mathf.Clamp(value, 0, 100); } }
     private int flirty;
     public int Flirty { get { return flirty; } private set { flirty = Mathf.Clamp(value, 0, 100); } }
     private int happy;
@@ -75,7 +75,7 @@ public class AIGirl : MonoBehaviour
                     Anger += value;
                     break;
                 case MoodType.Confident:
-                    Confidence += value;
+                    Confident += value;
                     break;
                 case MoodType.Flirty:
                     Flirty += value;
@@ -131,4 +131,196 @@ public class AIGirl : MonoBehaviour
             }
         }
     }
+
+    int cooldownEventIDontWantToEat = 0;
+    public void Eat(string input)  // Input from Airi App To learn something
+    {
+        if (cooldownEventIDontWantToEat == 0)
+        {
+
+        }
+        else
+        {
+            cooldownEventIDontWantToEat--;
+        }
+    }
+
+    public void StatsChangePerActivity(int activity)
+    {
+        //Mood changes
+        AiChangeStats(MoodType.Happy, -2);
+        AiChangeStats(MoodType.Sad, 2);
+        AiChangeStats(MoodType.Angry, -2);
+        AiChangeStats(MoodType.Confident, -2);
+        AiChangeStats(MoodType.Flirty, -2);
+
+        //Neeedy changes
+        AiChangeStats(NeedyType.Hunger, -3);
+        AiChangeStats(NeedyType.Energy, -7);
+        AiChangeStats(NeedyType.Fun, -3);
+        AiChangeStats(NeedyType.Hygiene, -3);
+
+        //Progress changes per even day
+        if (activity == 0)
+        {
+            AiChangeStats(ProgressType.Cognitive, -1);
+            AiChangeStats(ProgressType.Communication, -1);
+            AiChangeStats(ProgressType.Creative, -1);
+            AiChangeStats(ProgressType.Data, -1);
+            AiChangeStats(ProgressType.Emotional, -1);
+            AiChangeStats(ProgressType.TrustBonding, -1);
+        }
+    }
+
+    public void EndingCheck()
+    {
+        //Mood endings
+        if (Happy == 100)
+        {
+            
+        }
+        else if (Happy == 0)
+        {
+        }
+
+        if (Anger == 100)
+        {
+        }
+        else if (Anger == 0)
+        {
+        }
+
+        if (Sad == 100)
+        {
+        }
+        else if (Sad == 0)
+        {
+        }
+
+        if (Confident == 100)
+        {
+        }
+        else if (Confident == 0)
+        {
+        }
+
+        if (Flirty == 100)
+        {
+        }
+        else if (Flirty == 0)
+        {
+        }
+
+        //Needy endings
+        if (Hunger == 0)
+        {
+        }
+        if (Energy == 0)
+        {
+        }
+        if (Fun == 0)
+        {
+        }
+        if (Hygiene == 0)
+        {
+        }
+
+        //Skill endings
+        if (Cognitive == 10)
+        {
+        }
+        if (Communication == 10)
+        {
+        }
+        if (Creative == 10)
+        {
+        }
+        if (Data == 10)
+        {
+        }
+        if (Emotional == 10)
+        {
+        }
+        if (TrustBonding == 10)
+        {
+        }
+    }
+
+    /*public void DailyChatEvent()
+    {
+        //random number between 1-5
+        int randomChatEvent = UnityEngine.Random.Range(1, 6);
+        if (TrustBonding <= 3)
+        {
+            TrustBonding0To3(randomChatEvent);
+        }
+        else if (TrustBonding <= 6)
+        {
+            TrustBonding4To6(randomChatEvent);
+        }
+        else if (TrustBonding <= 9)
+        {
+            TrustBonding7To9(randomChatEvent);
+        }
+    }*/
+
+    int overHungryDays = 0;
+    int overEnergyDays = 0;
+    public void EventCheck()
+    {
+        if (Hunger > 80)
+        {
+            EventIDontWantToEat();
+        }
+        else
+        {
+            overHungryDays = 0;
+        }
+
+        if (Energy > 90)
+        {
+            EventEnergetic();
+        }
+        else
+        {
+            overEnergyDays = 0;
+        }
+    }
+
+
+    public void EventIDontWantToEat()
+    {
+        overHungryDays++;
+        if (overHungryDays >= 3 && cooldownEventIDontWantToEat == 0)
+        {
+            cooldownEventIDontWantToEat = 2;
+        }
+        else
+        {
+            overHungryDays = 0;
+        }
+    }
+
+    int cooldownEventEnergetic = 0;
+    public void EventEnergetic()
+    {
+        overEnergyDays++;
+        if (overEnergyDays >= 3 && cooldownEventEnergetic == 0)
+        {
+            cooldownEventEnergetic = 2;
+        }
+        else
+        {
+            overEnergyDays = 0;
+        }
+
+        if (cooldownEventEnergetic > 0)
+        {
+            AiChangeStats(NeedyType.Energy, 100);
+            AiChangeStats(NeedyType.Fun, 100);
+            cooldownEventEnergetic--;
+        }
+    }
+
+
 }

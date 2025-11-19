@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1461998260302669637, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
-      value: VsCode
+      value: CodeQuest
       objectReference: {fileID: 0}
     - target: {fileID: 2732130012052422780, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Name
-      value: VsCodeCanvas
+      value: CodeQuestCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3841662424084525360, guid: 2c93a143fd562d74bb4456539640ce3b, type: 3}
       propertyPath: m_Color.g

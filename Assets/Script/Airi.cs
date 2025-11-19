@@ -129,7 +129,7 @@ public class Airi : Application
     private void Update()
     {
         MoodText[0].GetComponent<TextMeshProUGUI>().text = "Anger: " + aiGirl.Anger;
-        MoodText[1].GetComponent<TextMeshProUGUI>().text = "Confidence: " + aiGirl.Confidence;
+        MoodText[1].GetComponent<TextMeshProUGUI>().text = "Confidence: " + aiGirl.Confident;
         MoodText[2].GetComponent<TextMeshProUGUI>().text = "Flirty: " + aiGirl.Flirty;
         MoodText[3].GetComponent<TextMeshProUGUI>().text = "Happy: " + aiGirl.Happy;
         MoodText[4].GetComponent<TextMeshProUGUI>().text = "Sad: " + aiGirl.Sad;

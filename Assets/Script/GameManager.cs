@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    AIGirl aiGirl;
     void Start()
     {
 
     }
     public static GameManager Instance;
-    private int Activity = 0;
+    private int activity = 0;
     private int day = 1;
     private void Awake()
     {
@@ -17,21 +18,27 @@ public class GameManager : MonoBehaviour
     }
     public void DoActivity()
     {
-        Activity += 1;
-        Debug.Log("Activity Point: " + Activity);
-        Debug.Log("Day: " + day);
+        activity += 1;
+        ActivityCheckAndDaySet();
     }
     void Update()
     {
-        if (Activity == 5)
+        if (activity == 5)
         {
             day += 1;
-            Activity = 0;
+            activity = 0;
         }
     }
 
-    public void setDay()
+    public void ActivityCheckAndDaySet()
     {
-        //later
+        if (activity == 5)
+        {
+            day += 1;
+            activity = 0;
+
+        }
+        aiGirl.StatsChangePerActivity(activity);
+        aiGirl.EventCheck();
     }
 }
