@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +13,10 @@ public class GameManager : MonoBehaviour
     }
     public static GameManager Instance;
     private int activity = 0;
+
     private int day = 1;
+    public GameObject DayText;
+
     private void Awake()
     {
         Instance = this;
@@ -21,14 +26,6 @@ public class GameManager : MonoBehaviour
         activity += 1;
         ActivityCheckAndDaySet();
     }
-    void Update()
-    {
-        if (activity == 5)
-        {
-            day += 1;
-            activity = 0;
-        }
-    }
 
     public void ActivityCheckAndDaySet()
     {
@@ -37,6 +34,7 @@ public class GameManager : MonoBehaviour
             day += 1;
             activity = 0;
 
+            DayText.GetComponent<TextMeshProUGUI>().text = "DAY " + day;
         }
         aiGirl.StatsChangePerActivity(activity);
         aiGirl.EventCheck();
