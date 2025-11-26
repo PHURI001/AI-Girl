@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -14,6 +15,8 @@ enum RoomType
 }
 public class Airi : Application
 {
+    public Trash trash;
+
     public Canvas CommandCanvas;
     public Canvas MoodCanvas;
     public Canvas NeedyCanvas;
@@ -33,7 +36,7 @@ public class Airi : Application
         "Airi.MoveTo(\"BedRoom\")",
         "Airi.MoveTo(\"Kitchen\")",
         "Airi.WatchTV()",
-        "Airi.PickUpItem(\"Trash\")"  //Move to trush app
+        "Airi.RemoveTrash()"  //Move to trush app
     };
     private List<string> bathRoomCommand = new List<string>()
     {
@@ -48,15 +51,64 @@ public class Airi : Application
     private List<string> kitchenCommand = new List<string>()
     {
         "Airi.MoveTo(\"LivingRoom\")",
-        "Airi.Yummy(http://"
+        "Airi.Eat(http://"
     };
 
     public TextMeshProUGUI CommandListText;
+
+    private List<WordData> data = new List<WordData>();
     private void Start()
     {
+        //test trash
+        TestTrashText.text = $"Trash: {totalTrash}";
+
         commandListSetUp(currentRoom);
         TestTextCheckRoom.text = currentRoom.ToString();
-        Debug.Log(currentRoom);
+        //Debug.Log(currentRoom);
+
+        data = new List<WordData>()
+        {
+            new WordData() { Word = "art", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "idea", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "imagine", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "inspire", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "color", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "compose", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "fantasy", Type = ProgressType.Creative, Value = 1 },
+            new WordData() { Word = "shape", Type = ProgressType.Creative, Value = 1 },
+
+            new WordData() { Word = "care", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "comfort", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "discuss", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "describle", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "empathize", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "express", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "mimic", Type = ProgressType.Communication, Value = 1 },
+            new WordData() { Word = "share", Type = ProgressType.Communication, Value = 1 },
+
+            new WordData() { Word = "analyze", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "arrange", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "ai", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "brain", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "calculate", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "estimate", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "data", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "logic", Type = ProgressType.Cognitive, Value = 1 },
+            new WordData() { Word = "plan", Type = ProgressType.Cognitive, Value = 1 },
+
+            new WordData() { Word = "dead", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "faith", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "hug", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "hope", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "help", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "love", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "loyal", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "respect", Type = ProgressType.Emotional, Value = 1 },
+            new WordData() { Word = "trust", Type = ProgressType.Emotional, Value = 1 },
+
+            new WordData() { Word = "Yumii", Type = 0, Value = 0 },
+            new WordData() { Word = "Phuri", Type = 0, Value = 0 }
+        };
     }
 
     public void MoodShow()
@@ -110,19 +162,35 @@ public class Airi : Application
     {
         if (room == RoomType.LivingRoom)
         {
-            CommandListText.text = "Commands:\nAiri.MoveTo(\"BathRoom\")\nAiri.MoveTo(\"BedRoom\")\nAiri.MoveTo(\"Kitchen\")\nAiri.WatchTV()\nAiri.PickUpItem(\"Trash\")";
+            CommandListText.text = "Commands:\n";
+            foreach (var text in livingRoomCommand)
+            {
+                CommandListText.text += text + "\n";
+            }
         }
         else if (room == RoomType.BathRoom)
         {
-            CommandListText.text = "Commands:\nAiri.MoveTo(\"LivingRoom\")\nAiri.TakeShower()";
+            CommandListText.text = "Commands:\n";
+            foreach (var text in bathRoomCommand)
+            {
+                CommandListText.text += text + "\n";
+            }
         }
         else if (room == RoomType.BedRoom)
         {
-            CommandListText.text = "Commands:\nAiri.MoveTo(\"LivingRoom\")\nAiri.Sleep()";
+            CommandListText.text = "Commands:\n";
+            foreach (var text in bedRoomCommand)
+            {
+                CommandListText.text += text + "\n";
+            }
         }
         else if (room == RoomType.Kitchen)
         {
-            CommandListText.text = "Commands:\nAiri.MoveTo(\"LivingRoom\")\nAiri.Yummy(http://)";
+            CommandListText.text = "Commands:\n";
+            foreach (var text in kitchenCommand)
+            {
+                CommandListText.text += text + "\n";
+            }
         }
     }
 
@@ -219,6 +287,7 @@ public class Airi : Application
             else if (Input.text.Contains("WatchTV"))
             {
                 aiChangeStats(NeedyType.Fun, 15);
+                GameManager.Instance.DoActivity();
             }
             else if (Input.text.Contains("TakeShower"))
             {
@@ -228,26 +297,74 @@ public class Airi : Application
             else if (Input.text.Contains("Sleep"))
             {
                 aiChangeStats(NeedyType.Energy, 40);
+                GameManager.Instance.DoActivity();
             }
-            else if (Input.text.Contains("Yummy"))
+            else if (Input.text.Contains("Eat"))
             {
-                aiChangeStats(NeedyType.Hunger, 30);
+                if (Input.text.Contains("Wiwi.com/") || Input.text.Contains("YouNube.com/") || Input.text.Contains("KoCoColor.com/") || Input.text.Contains("EverMuse.com/") || Input.text.Contains("QuietRiver.com/"))
+                {
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        if (Input.text.Contains(data[i].Word))
+                        {
+                            aiChangeStats(data[i].Type, data[i].Value);
+                            aiChangeStats(NeedyType.Hunger, 30);
+                            aiChangeStats(NeedyType.Energy, -5);
+                            aiChangeStats(MoodType.Confident, 10);
+                            GameManager.Instance.DoActivity();
+                        }
+                    }
+                }
+                else
+                {
+                    Input.text = "error: web not found";
+                };
             }
-            else if (Input.text.Contains("PickUpItem"))
+            else if (Input.text.Contains("RemoveTrash"))
             {
-                //later
+                RemoveTrash();
+                GameManager.Instance.DoActivity();
             }
         }
         TestTextCheckRoom.text = currentRoom.ToString();
     }
 
-    public void AddTrash()
+    int maxTrash = 7;
+    int addTrashValue = 2;
+    int totalTrash;
+
+    public TextMeshProUGUI TestTrashText;
+    public void AddTrash(int value)
     {
-        //later
+        totalTrash += value;
+        if (totalTrash > maxTrash)
+        {
+            totalTrash = maxTrash;
+        }
+    }
+
+    public void TrashActive()
+    {
+        aiChangeStats(NeedyType.Hygiene, totalTrash * 2);
     }
 
     public void RemoveTrash()
     {
-        //later
+        trash.AddTrash(totalTrash);
+        totalTrash = 0;
+        TestTrashText.text = $"Trash: {totalTrash}";
+    }
+
+    public void Event(int day)
+    {
+        if (day%2 == 0)
+        {
+            AddTrash(addTrashValue);
+        }
+
+        if (totalTrash != 0)
+        {
+            TrashActive();
+        }
     }
 }

@@ -55,5 +55,6 @@ public class Notflex : Application
                 aiChangeStats   (NeedyType.Fun, 5);
                 break;
         }
+        GameManager.Instance.DoActivity();
     }
 }

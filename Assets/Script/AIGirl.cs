@@ -285,6 +285,18 @@ public class AIGirl : MonoBehaviour
         {
             overEnergyDays = 0;
         }
+
+        //down the stats
+        AiChangeStats(MoodType.Happy, -2);
+        AiChangeStats(MoodType.Angry, -2);
+        AiChangeStats(MoodType.Sad, -2);
+        AiChangeStats(MoodType.Confident, -2);
+        AiChangeStats(MoodType.Flirty, -2);
+        
+        AiChangeStats(NeedyType.Hunger, -3);
+        AiChangeStats(NeedyType.Energy, -7);
+        AiChangeStats(NeedyType.Fun, -3);
+        AiChangeStats(NeedyType.Hygiene, -3);
     }
 
 
@@ -322,5 +334,17 @@ public class AIGirl : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Anger = 50;
+        Confident = 50;
+        Flirty = 50;
+        Happy = 50;
+        Sad = 50;
 
+        Fun = 50;
+        Hunger = 50;
+        Energy = 100;
+        Hygiene = 50;
+    }
 }

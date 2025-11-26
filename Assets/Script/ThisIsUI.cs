@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Event : MonoBehaviour
+public class ThisIsUI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

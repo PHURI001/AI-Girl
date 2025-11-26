@@ -23,6 +23,7 @@ public abstract class Application : MonoBehaviour, IDragHandler
 
     protected void aiChangeStats(Enum valueType ,int value)
     {
+        aiGirl = FindAnyObjectByType<AIGirl>();
         aiGirl.AiChangeStats(valueType, value);
     }
 

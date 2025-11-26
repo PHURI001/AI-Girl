@@ -100,6 +100,7 @@ public class CodeQuest : Application
         }
         if (correctAnswers == 5)
         {
+            GameManager.Instance.DoActivity();
             due -= 1;
             if (due == 0)
             {
@@ -128,6 +129,6 @@ public class CodeQuest : Application
             totalReward = reward - (reward / ((allAnswer.Count * 5 * (int)level) * mistakes));
         }
         else { totalReward = reward; }
-        player.ChangeMoney(totalReward);
+        player.ChangeMoney(totalReward, "");
     }
 }
