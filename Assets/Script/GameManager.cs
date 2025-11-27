@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     EndingChecker endingChecker;
     public GameObject NextDayCanvas;
     Player player;
+    public CodeQuest CodeQuest;
 
     public static GameManager Instance;
     private int activity = 0;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
             DayText.GetComponent<TextMeshProUGUI>().text = "DAY " + day;
 
             Airi.Event(day);
+            CodeQuest.EventCheck();
         }
         aiGirl.StatsChangePerActivity(activity);
         aiGirl.EventCheck();

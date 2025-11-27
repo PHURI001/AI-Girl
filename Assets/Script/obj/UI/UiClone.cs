@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnCanvasUI : MonoBehaviour
@@ -28,26 +29,46 @@ public class SpawnCanvasUI : MonoBehaviour
 
     public void MyComputer()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[0]));
+        if (FindFirstObjectByType<MyComputer>() == null && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[0]));
+        }
     }
+
+    public CodeQuest CodeQuest;
     public void VsCode()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[1]));
+        if (FindFirstObjectByType<CodeQuest>() == null && !CodeQuest.Worked && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[1]));
+        }
     }
     public void Trash()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[2]));
+        if (FindFirstObjectByType<Trash>() == null && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[2]));
+        }
     }
     public void Airi()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[3]));
+        if (FindFirstObjectByType<Airi>() == null && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[3]));
+        }
     }
     public void Notflex()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[4]));
+        if (FindFirstObjectByType<Notflex>() == null && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[4]));
+        }
     }
     public void Chroma()
     {
-        SpawnUI(Instantiate(uiCanvasPrefab[5]));
+        if (FindFirstObjectByType<Chroma>() == null && FindFirstObjectByType<Chat>() == null)
+        {
+            SpawnUI(Instantiate(uiCanvasPrefab[5]));
+        }
     }
 }

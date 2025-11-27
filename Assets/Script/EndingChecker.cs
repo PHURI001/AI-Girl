@@ -124,6 +124,12 @@ public class EndingChecker : MonoBehaviour
 
     private void Active(string textOut)
     {
+        var allUI = FindObjectsByType<ThisIsUI>(FindObjectsSortMode.None);
+
+        foreach (var ui in allUI)
+        {
+            Destroy(ui.gameObject);
+        }
         TextOutput.text = textOut;
         EndingCanvas.enabled = true;
         ended = true;

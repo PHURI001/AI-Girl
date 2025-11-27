@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public void ChangeMoney(float value, string text)
     {
         Money += value;
-        MoneyUIText.GetComponent<TextMeshProUGUI>().text = Money + "$";
+        MoneyUIText.GetComponent<TextMeshProUGUI>().text = Money + "";
 
         if (Money < 0)
         {

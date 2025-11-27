@@ -102,6 +102,7 @@ public class Chroma : Application
         SearchInput.text = "";
     }
 
+    public TextMeshProUGUI NotFoundText;
     private void webSetUp(int searchForm)  // 0 = home to web, 1 = web to web
     {
         bool found = false;
@@ -126,20 +127,23 @@ public class Chroma : Application
             }
         }
 
+        
         if (found)
         {
             //Debug.Log("Words found in Data.");
+            NotFoundText.enabled = false;
             Scroll.enabled = true;
 
-            Webs[0].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"Wiwi - What is {input}?";
-            Webs[1].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"Let's talk about {input}.";
-            Webs[2].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"Explore the meaning of {input}.";
-            Webs[3].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"A deeper look into {input}.";
-            Webs[4].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"Discover the essence of {input}.";
+            Webs[0].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{input.ToUpper()}?";
+            Webs[1].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{input.ToUpper()}.";
+            Webs[2].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{input.ToUpper()}.";
+            Webs[3].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{input.ToUpper()}.";
+            Webs[4].transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{input.ToUpper()}.";
         }
         else
         {
             //Debug.Log("No words found in Data.");
+            NotFoundText.enabled = true;
             Scroll.enabled = false;
         }
     }

@@ -22,7 +22,7 @@ public class CodeQuest : Application
     static Dictionary<string, List<string>> allAnswer;
 
     static int totalReward;
-
+    public static bool Worked = false;
     //ui
     public List<GameObject> allUI; // 0 = Home, 1-6 = quests
 
@@ -54,11 +54,11 @@ public class CodeQuest : Application
             reward = 120;
             due = 3;
             level = DifficultyLevel.Easy;
-            answers = new List<string> { "header", "h1", "p", "className", "className" };
+            answers = new List<string> { "1", "1", "1", "1", "1" };
             allAnswer["quiz1"] = answers;
-            answers = new List<string> { "option", "option", "div", "h3", "div" };
+            answers = new List<string> { "1", "1", "1", "1", "1" };
             allAnswer["quiz2"] = answers;
-            answers = new List<string> { "div", "p", "span", "article", "h2" };
+            answers = new List<string> { "1", "1", "1", "1", "1" };
             allAnswer["quiz3"] = answers;
         }
         else if (choose == 2)
@@ -101,6 +101,7 @@ public class CodeQuest : Application
         if (correctAnswers == 5)
         {
             GameManager.Instance.DoActivity();
+            Worked = true;
             due -= 1;
             if (due == 0)
             {
@@ -130,5 +131,10 @@ public class CodeQuest : Application
         }
         else { totalReward = reward; }
         player.ChangeMoney(totalReward, "");
+    }
+
+    public void EventCheck()
+    {
+        Worked = false;
     }
 }
