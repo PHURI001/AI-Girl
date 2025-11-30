@@ -29,14 +29,14 @@ public class Airi : Application
     public TMP_InputField Input;
 
     static private RoomType currentRoom;
-    public TextMeshProUGUI TestTextCheckRoom;
+    public TextMeshProUGUI ShowCurrentRoom;
     private List<string> livingRoomCommand = new List<string>()
     {
         "Airi.MoveTo(\"BathRoom\")",
         "Airi.MoveTo(\"BedRoom\")",
         "Airi.MoveTo(\"Kitchen\")",
-        "Airi.WatchTV()",
-        "Airi.RemoveTrash()"  //Move to trush app
+        "Airi.Use(\"TV\")",
+        "Airi.PickUpItem(\"Trash\")"  //Move to trush app
     };
     private List<string> bathRoomCommand = new List<string>()
     {
@@ -51,19 +51,19 @@ public class Airi : Application
     private List<string> kitchenCommand = new List<string>()
     {
         "Airi.MoveTo(\"LivingRoom\")",
-        "Airi.Eat(http://"
+        "Airi.Yummy(http://"
     };
-
-    public TextMeshProUGUI CommandListText;
 
     private List<WordData> data = new List<WordData>();
     private void Start()
     {
         //test trash
-        TestTrashText.text = $"Trash: {totalTrash}";
+        //TestTrashText.text = $"Trash: {totalTrash}";
+        AddTrash(0);
 
-        commandListSetUp(currentRoom);
-        TestTextCheckRoom.text = currentRoom.ToString();
+        //commandListSetUp(currentRoom);
+        ShowCurrentRoom.text = currentRoom.ToString();
+
         //Debug.Log(currentRoom);
 
         data = new List<WordData>()
@@ -113,6 +113,8 @@ public class Airi : Application
 
     public void MoodShow()
     {
+        NeedyCanvas.enabled = false;
+        SkillCanvas.enabled = false;
         if (MoodCanvas.enabled)
         {
             MoodCanvas.enabled = false;
@@ -124,6 +126,8 @@ public class Airi : Application
     }
     public void NeedyShow()
     {
+        MoodCanvas.enabled = false;
+        SkillCanvas.enabled = false;
         if (NeedyCanvas.enabled)
         {
             NeedyCanvas.enabled = false;
@@ -136,6 +140,8 @@ public class Airi : Application
 
     public void SkillShow()
     {
+        MoodCanvas.enabled = false;
+        NeedyCanvas.enabled = false;
         if (SkillCanvas.enabled)
         {
             SkillCanvas.enabled = false;
@@ -146,84 +152,91 @@ public class Airi : Application
         }
     }
 
+    public List<Image> CommandImage;
+    bool commandOpened = false;
     public void CommandShow()
     {
-        if (CommandCanvas.enabled)
+        MoodCanvas.enabled = false;
+        NeedyCanvas.enabled = false;
+        SkillCanvas.enabled = false;
+
+        if (commandOpened)
         {
-            CommandCanvas.enabled = false;
+            commandOpened = false;
         }
-        else
+        else { commandOpened = true; }
+
+        if (currentRoom == RoomType.LivingRoom)
         {
-            CommandCanvas.enabled = true;
+            if (totalTrash > 0)
+            {
+                CommandImage[0].enabled = commandOpened;
+            }
+            else
+            {
+                CommandImage[1].enabled = commandOpened;
+            }
+        }
+        else if (currentRoom == RoomType.BathRoom)
+        {
+            CommandImage[2].enabled = commandOpened;
+        }
+        else if (currentRoom == RoomType.Kitchen)
+        {
+            CommandImage[3].enabled = commandOpened;
+        }
+        else if (currentRoom == RoomType.BedRoom)
+        {
+            CommandImage[4].enabled = commandOpened;
         }
     }
 
-    private void commandListSetUp(RoomType room)
+    private void isCommandShowing()
     {
-        if (room == RoomType.LivingRoom)
+        if (commandOpened)
         {
-            CommandListText.text = "Commands:\n";
-            foreach (var text in livingRoomCommand)
+            foreach (Image image in CommandImage)
             {
-                CommandListText.text += text + "\n";
+                image.enabled = false;
             }
-        }
-        else if (room == RoomType.BathRoom)
-        {
-            CommandListText.text = "Commands:\n";
-            foreach (var text in bathRoomCommand)
-            {
-                CommandListText.text += text + "\n";
-            }
-        }
-        else if (room == RoomType.BedRoom)
-        {
-            CommandListText.text = "Commands:\n";
-            foreach (var text in bedRoomCommand)
-            {
-                CommandListText.text += text + "\n";
-            }
-        }
-        else if (room == RoomType.Kitchen)
-        {
-            CommandListText.text = "Commands:\n";
-            foreach (var text in kitchenCommand)
-            {
-                CommandListText.text += text + "\n";
-            }
+            commandOpened = false;
+            CommandShow();
         }
     }
 
     private void Update()
     {
-        MoodText[0].GetComponent<TextMeshProUGUI>().text = "Anger: " + aiGirl.Anger;
-        MoodText[1].GetComponent<TextMeshProUGUI>().text = "Confidence: " + aiGirl.Confident;
-        MoodText[2].GetComponent<TextMeshProUGUI>().text = "Flirty: " + aiGirl.Flirty;
-        MoodText[3].GetComponent<TextMeshProUGUI>().text = "Happy: " + aiGirl.Happy;
-        MoodText[4].GetComponent<TextMeshProUGUI>().text = "Sad: " + aiGirl.Sad;
+        MoodText[0].GetComponent<TextMeshProUGUI>().text = aiGirl.Anger + "%";
+        MoodText[1].GetComponent<TextMeshProUGUI>().text = aiGirl.Confident + "%";
+        MoodText[2].GetComponent<TextMeshProUGUI>().text = aiGirl.Flirty + "%";
+        MoodText[3].GetComponent<TextMeshProUGUI>().text = aiGirl.Happy + "%";
+        MoodText[4].GetComponent<TextMeshProUGUI>().text = aiGirl.Sad + "%";
 
-        NeedyText[0].GetComponent<TextMeshProUGUI>().text = "Fun: " + aiGirl.Fun;
-        NeedyText[1].GetComponent<TextMeshProUGUI>().text = "Hunger: " + aiGirl.Hunger;
-        NeedyText[2].GetComponent<TextMeshProUGUI>().text = "Energy: " + aiGirl.Energy;
-        NeedyText[3].GetComponent<TextMeshProUGUI>().text = "Hygiene: " + aiGirl.Hygiene;
+        NeedyText[0].GetComponent<TextMeshProUGUI>().text = aiGirl.Fun + "%";
+        NeedyText[1].GetComponent<TextMeshProUGUI>().text = aiGirl.Hunger + "%";
+        NeedyText[2].GetComponent<TextMeshProUGUI>().text = aiGirl.Energy + "%";
+        NeedyText[3].GetComponent<TextMeshProUGUI>().text = aiGirl.Hygiene + "%";
 
-        SkillText[0].GetComponent<TextMeshProUGUI>().text = "Cognitive: " + aiGirl.Cognitive;
-        SkillText[1].GetComponent<TextMeshProUGUI>().text = "Communication: " + aiGirl.Communication;
-        SkillText[2].GetComponent<TextMeshProUGUI>().text = "Creative: " + aiGirl.Creative;
-        SkillText[3].GetComponent<TextMeshProUGUI>().text = "Data: " + aiGirl.Data;
-        SkillText[4].GetComponent<TextMeshProUGUI>().text = "Emotional: " + aiGirl.Emotional;
-        SkillText[5].GetComponent<TextMeshProUGUI>().text = "TrustBonding: " + aiGirl.TrustBonding;
+        SkillText[0].GetComponent<TextMeshProUGUI>().text = aiGirl.Cognitive * 10 + "%";
+        SkillText[1].GetComponent<TextMeshProUGUI>().text = aiGirl.Communication * 10 + "%";
+        SkillText[2].GetComponent<TextMeshProUGUI>().text = aiGirl.Creative * 10 + "%";
+        SkillText[3].GetComponent<TextMeshProUGUI>().text = aiGirl.Data * 10 + "%";
+        SkillText[4].GetComponent<TextMeshProUGUI>().text = aiGirl.Emotional * 10 + "%";
+        SkillText[5].GetComponent<TextMeshProUGUI>().text = aiGirl.TrustBonding * 10 + "%";
     }
 
+    public List<Canvas> RoomImage;
     public void CommandActive()
     {
         bool commandFound = false;
+        Input.text = Input.text.ToUpper();
+        //Debug.Log("Active");
         switch (currentRoom)
         {
             case RoomType.LivingRoom:
                 foreach (string command in livingRoomCommand)
                 {
-                    if (Input.text == command)
+                    if (Input.text == command.ToUpper())
                     {
                         commandFound = true;
                         break;
@@ -233,7 +246,7 @@ public class Airi : Application
             case RoomType.BathRoom:
                 foreach (string command in bathRoomCommand)
                 {
-                    if (Input.text == command)
+                    if (Input.text == command.ToUpper())
                     {
                         commandFound = true;
                         break;
@@ -243,7 +256,7 @@ public class Airi : Application
             case RoomType.BedRoom:
                 foreach (string command in bedRoomCommand)
                 {
-                    if (Input.text == command)
+                    if (Input.text == command.ToUpper())
                     {
                         commandFound = true;
                         break;
@@ -253,7 +266,7 @@ public class Airi : Application
             case RoomType.Kitchen:
                 foreach (string command in kitchenCommand)
                 {
-                    if (Input.text == command)
+                    if (Input.text == command.ToUpper())
                     {
                         commandFound = true;
                         break;
@@ -264,44 +277,53 @@ public class Airi : Application
 
         if (commandFound)
         {
-            if (Input.text.Contains("MoveTo"))
+            if (Input.text.Contains("MOVETO"))
             {
-                if (Input.text.Contains("BathRoom"))
+                foreach (Canvas image in RoomImage)
+                {
+                    image.enabled = false;
+                }
+                if (Input.text.Contains("BATHROOM"))
                 {
                     currentRoom = RoomType.BathRoom;
+                    RoomImage[1].enabled = true;
                 }
-                else if (Input.text.Contains("BedRoom"))
+                else if (Input.text.Contains("BEDROOM"))
                 {
                     currentRoom = RoomType.BedRoom;
+                    RoomImage[3].enabled = true;
                 }
-                else if (Input.text.Contains("Kitchen"))
+                else if (Input.text.Contains("KITCHEN"))
                 {
                     currentRoom = RoomType.Kitchen;
+                    RoomImage[2].enabled = true;
                 }
-                else if (Input.text.Contains("LivingRoom"))
+                else if (Input.text.Contains("LIVINGROOM"))
                 {
                     currentRoom = RoomType.LivingRoom;
+                    RoomImage[0].enabled = true;
                 }
-                commandListSetUp(currentRoom);
+                //commandListSetUp(currentRoom);
+                isCommandShowing();
             }
-            else if (Input.text.Contains("WatchTV"))
+            else if (Input.text.Contains("TV"))
             {
                 aiChangeStats(NeedyType.Fun, 15);
                 GameManager.Instance.DoActivity();
             }
-            else if (Input.text.Contains("TakeShower"))
+            else if (Input.text.Contains("TAKESHOWER"))
             {
                 aiChangeStats(NeedyType.Hygiene, 20);
                 GameManager.Instance.DoActivity();
             }
-            else if (Input.text.Contains("Sleep"))
+            else if (Input.text.Contains("SLEEP"))
             {
                 aiChangeStats(NeedyType.Energy, 40);
                 GameManager.Instance.DoActivity();
             }
-            else if (Input.text.Contains("Eat"))
+            else if (Input.text.Contains("YUMMY"))
             {
-                if (Input.text.Contains("Wiwi.com/") || Input.text.Contains("YouNube.com/") || Input.text.Contains("KoCoColor.com/") || Input.text.Contains("EverMuse.com/") || Input.text.Contains("QuietRiver.com/"))
+                if (Input.text.Contains("WIWI.COM/") || Input.text.Contains("YOUNUBE.COM/") || Input.text.Contains("KOCOCOLOR.COM/") || Input.text.Contains("EVERMUSE.COM/") || Input.text.Contains("QUIETRIVER.COM/"))
                 {
                     for (int i = 0; i < data.Count; i++)
                     {
@@ -320,23 +342,35 @@ public class Airi : Application
                     Input.text = "error: web not found";
                 };
             }
-            else if (Input.text.Contains("RemoveTrash"))
+            else if (Input.text.Contains("TRASH"))
             {
                 RemoveTrash();
                 GameManager.Instance.DoActivity();
             }
         }
-        TestTextCheckRoom.text = currentRoom.ToString();
+        else
+        {
+            Input.text = "error: what are you going to do, bro?";
+        }
+            ShowCurrentRoom.text = currentRoom.ToString();
     }
 
     int maxTrash = 7;
     int addTrashValue = 2;
-    int totalTrash;
+    static int totalTrash;
 
-    public TextMeshProUGUI TestTrashText;
+    public List<Image> TrashImage;
     public void AddTrash(int value)
     {
         totalTrash += value;
+        if (totalTrash > 0)
+        {
+            foreach (Image image in TrashImage)
+            {
+                image.enabled = true;
+            }
+        }
+
         if (totalTrash > maxTrash)
         {
             totalTrash = maxTrash;
@@ -352,15 +386,20 @@ public class Airi : Application
     {
         trash.AddTrash(totalTrash);
         totalTrash = 0;
-        TestTrashText.text = $"Trash: {totalTrash}";
+        foreach (Image image in TrashImage)
+        {
+            image.enabled = false;
+        }
     }
 
     public void Event(int day)
     {
-        if (day%2 == 0)
+        //Debug.Log("Airi Event Active");
+        AddTrash(addTrashValue);
+        /*if (day%2 == 0)
         {
             AddTrash(addTrashValue);
-        }
+        }*/
 
         if (totalTrash != 0)
         {

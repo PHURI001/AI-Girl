@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,22 +25,41 @@ public class CodeQuest : Application
     static int totalReward;
     public static bool Worked = false;
     //ui
-    public List<GameObject> allUI; // 0 = Home, 1-6 = quests
+
+    public Canvas Home;
+    public Canvas Done;
+
+    public List<Canvas> AllQuestCanvas;
+    public List <Canvas> Quest1Canvas;
+    public List <Canvas> Quest2Canvas;
+
+
+    public List<GameObject> Quest1;
+    public List<GameObject> Quest2;
 
     void Start()
     {
+        if (Worked)
+        {
+            Home.enabled = false;
+            Done.enabled = true;
+        }
         player = FindAnyObjectByType<Player>();
         //test
         //QuestPicking(1);
 
-        if (due == 0)
+        if (!Worked && due > 0)
         {
-            //???
-        }
-        else
-        {
-            allUI[0].GetComponent<Canvas>().enabled = false;
-            allUI[currentQuestion].GetComponent<Canvas>().enabled = true;
+            Home.enabled = false;
+            AllQuestCanvas[currentQuestion].enabled = true;
+            if (currentQuestion == 0)
+            {
+                Quest1Canvas[allAnswer.Count - due].enabled = true;
+            }
+            else if (currentQuestion == 1)
+            {
+                Quest2Canvas[allAnswer.Count - due].enabled = true;
+            }
         }
     }
 
@@ -49,19 +69,20 @@ public class CodeQuest : Application
         allAnswer = new Dictionary<string, List<string>>();
         List<string> answers = new List<string>();
 
-        if (choose == 1)
+        if (choose == 0)
         {
             reward = 120;
             due = 3;
             level = DifficultyLevel.Easy;
-            answers = new List<string> { "1", "1", "1", "1", "1" };
+            answers = new List<string> { "header", "h1", "p", "className", "className" };
             allAnswer["quiz1"] = answers;
-            answers = new List<string> { "1", "1", "1", "1", "1" };
+            answers = new List<string> { "option", "option", "div", "h3", "div" };
             allAnswer["quiz2"] = answers;
-            answers = new List<string> { "1", "1", "1", "1", "1" };
+            answers = new List<string> { "div", "p", "span", "article", "h2" };
             allAnswer["quiz3"] = answers;
+            Quest1Canvas[0].enabled = true;
         }
-        else if (choose == 2)
+        else if (choose == 1)
         {
             reward = 100;
             due = 1;
@@ -70,38 +91,52 @@ public class CodeQuest : Application
             allAnswer["quiz1"] = answers;
             answers = new List<string> { "div", "button", "className", "div", "footer"};
             allAnswer["quiz2"] = answers;
+            Quest2Canvas[0].enabled = true;
         }
 
 
-        allUI[0].GetComponent<Canvas>().enabled = false;
-        allUI[currentQuestion].GetComponent<Canvas>().enabled = true;
+        Home.enabled = false;
+        AllQuestCanvas[currentQuestion].enabled = true;
         //Debug.Log(allAnswer["quiz1"][1]);
     }
 
     [System.Obsolete]
-    private void checkAnswer()
+    private IEnumerator checkAnswer()
     {
-        //allUI[currentQuestion].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text
         int thisQuiz = (allAnswer.Count - due) + 1;
+        int findQuest = thisQuiz - 1;
+        //allUI[currentQuestion].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text
         int correctAnswers = 0;
         for (int i = 1; i < 6; i++)
         {
-            if (allUI[currentQuestion].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text == allAnswer[$"quiz{thisQuiz}"][i-1])
+            if (currentQuestion == 0)
             {
-                //Debug.Log($"Correct");
-                correctAnswers += 1;
+                if (Quest1[findQuest].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text == allAnswer[$"quiz{thisQuiz}"][i - 1])
+                {
+                    correctAnswers++;
+                }
+                else
+                {
+                    mistakes += 1;
+                    Quest1[findQuest].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text = "wrong";
+                }
             }
-            else
+            else if (currentQuestion == 1)
             {
-                //Debug.Log($"Wrong");
-                mistakes += 1;
-                allUI[currentQuestion].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text = "";
+                if (Quest2[findQuest].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text == allAnswer[$"quiz{thisQuiz}"][i - 1])
+                {
+                    correctAnswers++;
+                }
+                else
+                {
+                    mistakes += 1;
+                    Quest1[findQuest].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text = "wrong";
+                }
             }
         }
+        Worked = true;
         if (correctAnswers == 5)
         {
-            GameManager.Instance.DoActivity();
-            Worked = true;
             due -= 1;
             if (due == 0)
             {
@@ -113,12 +148,26 @@ public class CodeQuest : Application
                 base.DeleteWindow();
             }
         }
+        else
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        GameManager.Instance.DoActivity();
     }
 
-    public void EnterAnswer()
+    /*public void Answer(int value)
+    {
+        int thisQuiz = (allAnswer.Count - due) + 1;
+        if (allAnswer[$"quiz{thisQuiz}"][value] == "1")
+        {
+
+        }
+    }*/
+
+    public void FinishButton()
     {
 #pragma warning disable CS0612 // Type or member is obsolete
-        checkAnswer();
+        StartCoroutine(checkAnswer());
 #pragma warning restore CS0612 // Type or member is obsolete
     }
 

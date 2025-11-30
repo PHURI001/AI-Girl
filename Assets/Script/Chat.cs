@@ -10,7 +10,8 @@ public class Chat : MonoBehaviour
     AIGirl aiGirl;
     public GameObject ChatCanvas;
     public List<GameObject> TextLogs = new List<GameObject>();
-    public Canvas RespomdCanvas;
+
+    public Canvas Chatbox;
 
     [System.Obsolete]
     private void Start()
@@ -56,11 +57,11 @@ public class Chat : MonoBehaviour
     string choice3;
     public void ChatActive(int value)
     {
-        asking = "Airi: ";
-        respond = "Airi: ";
-        choice1 = "A.";
-        choice2 = "B.";
-        choice3 = "C.";
+        asking = "Airi : ";
+        respond = "Airi : ";
+        choice1 = "A : ";
+        choice2 = "B : ";
+        choice3 = "C : ";
         if (aiGirl.TrustBonding <= 3)
         {
             if (value == 0)
@@ -68,7 +69,7 @@ public class Chat : MonoBehaviour
                 asking += "What kind of hobbies do you usually enjoy?";
                 choice1 += "Reading or watching something relaxing.";
                 choice2 += "Fighting dangerous monsters every weekend.";
-                choice3 += " I don’t enjoy anything at all.";
+                choice3 += "I don’t enjoy anything at all.";
             }
             if (value == 1)
             {
@@ -190,7 +191,7 @@ public class Chat : MonoBehaviour
     public void ChatActive(int value, int choose)
     {
         responded = true;
-        respond = "Airi: ";
+        respond = "Airi : ";
         if (aiGirl.TrustBonding <= 3)
         {
             if (value == 0)
@@ -499,8 +500,9 @@ public class Chat : MonoBehaviour
             }
         }
 
-        RespomdCanvas.enabled = true;
+        Chatbox.enabled = false;
         TextLogs[4].GetComponent<TextMeshProUGUI>().text = respond;
+        TextLogs[4].GetComponent<TextMeshProUGUI>().enabled = true;
         //wait player clikc or something
     }
 
@@ -510,7 +512,6 @@ public class Chat : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                RespomdCanvas.enabled = false;
                 responded = false;
                 //Debug.Log("Chat ended");
                 Destroy(this.gameObject);

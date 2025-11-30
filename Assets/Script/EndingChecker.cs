@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,9 +8,8 @@ public class EndingChecker : MonoBehaviour
     AIGirl aIGirl;
     
     public TextMeshProUGUI TextOutput;
+    public TextMeshProUGUI Description;
     public Canvas EndingCanvas;
-
-    bool ended = false;
 
     public void Start()
     {
@@ -21,108 +21,108 @@ public class EndingChecker : MonoBehaviour
         //Mood Ending
         if (aIGirl.Happy  == 100)
         {
-            Active("Ending\nHappy Girl");
+            Active("Ending : Happy Girl.", "YOU REACH MAX HAPPY");
         }
         else if (aIGirl.Happy == 0)
         {
-            TextOutput.text = "Lose\n(Happy)";
+            Active("Game Over", "Happy is at 0");
         }
 
         if (aIGirl.Anger == 100)
         {
-            Active("Ending\nGet Mad");
+            Active("Ending : Get Mad.", "YOU REACH MAX ANGRY");
         }
         else if (aIGirl.Anger == 0)
         {
-            TextOutput.text = "Lose\n(Anger)";
+            Active("Game Over", "Angry is at 0");
         }
 
         if (aIGirl.Sad == 100)
         {
-            Active("Ending\nLeave Me Alone");
+            Active("Ending : Leave Me Alon.", "YOU REACH MAX SAD");
         }
         else if (aIGirl.Sad == 0)
         {
-            TextOutput.text = "Lose\n(Sad)";
+            Active("Game Over", "Sad is at 0");
         }
 
         if (aIGirl.Confident == 100)
         {
-            Active("Ending\nEgo");
+            Active("Ending : Ego.", "YOU REACH MAX CONFIDENT");
         }
         else if (aIGirl.Confident == 0)
         {
-            TextOutput.text = "Lose\n(Confident)";
+            Active("Game Over", "Confident is at 0");
         }
 
         if (aIGirl.Flirty == 100)
         {
-            Active("Ending\nPervert");
+            Active("Ending : Pervert.", "YOU REACH MAX FLIRTY");
         }
         else if (aIGirl.Flirty == 0)
         {
-            TextOutput.text = "Lose\n(Flirty)";
+            Active("Game Over", "Flirty is at 0");
         }
 
         //Skill Ending
         if (aIGirl.Cognitive == 10)
         {
-            Active("Ending\nGenius");
+            Active("Ending : Genius.", "YOU REACH COGNITIVE LEVEL 10");
         }
 
         if (aIGirl.Communication == 10)
         {
-            Active("Ending\nBest Friend");
+            Active("Ending : Best Friend.", "YOU REACH COMMUNICATION LEVEL 10");
         }
 
         if (aIGirl.Creative == 10)
         {
-            Active("Ending\nDream");
+            Active("Ending : Dream.", "YOU REACH CREATIVE LEVEL 10");
         }
 
         if (aIGirl.Data == 10)
         {
-            Active("Ending\nI Know Everything");
+            Active("Ending : I Know Everything.", "YOU REACH DATA LEVEL 10");
         }
 
         if (aIGirl.Emotional == 10)
         {
-            Active("Ending\nI feel it");
+            Active("Ending : I Feel It.", "YOU REACH EMOTIONAL LEVEL 10");
         }
 
         if (aIGirl.TrustBonding == 10)
         {
-            Active("Ending\nI love you");
+            Active("Ending : I Love You.", "YOU REACH TRUST BONDING LEVEL 10");
         }
 
         //Needy Ending
         if (aIGirl.Hunger == 0)
         {
-            Active("Lose\n(Hunger)");
+            Active("Game Over", "Starving");
         }
 
         if (aIGirl.Energy == 0)
         {
-            Active("Lose\n(Energy)");
+            Active("Game Over", "Low battery");
         }
 
         if (aIGirl.Fun == 0)
         {
-            Active("Lose\n(Fun)");
+            Active("Game Over", "No More Fun");
         }
 
         if (aIGirl.Hygiene == 0)
         {
-            Active("Lose\n(Hygiene)");
+            Active("Game Over", "Hygiene is at 0");
         }
     }
 
     public void Checking(float value, string text)
     {
-        Active($"You owe {value}$, {text}");
+        Active($"You owe {value}$, {text}", "Poor Guy");
     }
 
-    private void Active(string textOut)
+    private void Active(string textOut, string des)
     {
         var allUI = FindObjectsByType<ThisIsUI>(FindObjectsSortMode.None);
 
@@ -131,19 +131,7 @@ public class EndingChecker : MonoBehaviour
             Destroy(ui.gameObject);
         }
         TextOutput.text = textOut;
+        Description.text = des;
         EndingCanvas.enabled = true;
-        ended = true;
-    }
-
-    private void Update()
-    {
-        if (ended)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //Debug.Log("Game Over");
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
     }
 }

@@ -35,10 +35,9 @@ public class SpawnCanvasUI : MonoBehaviour
         }
     }
 
-    public CodeQuest CodeQuest;
     public void VsCode()
     {
-        if (FindFirstObjectByType<CodeQuest>() == null && !CodeQuest.Worked && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<CodeQuest>() == null && FindFirstObjectByType<Chat>() == null)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[1]));
         }
