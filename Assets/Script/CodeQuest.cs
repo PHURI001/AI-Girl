@@ -45,8 +45,6 @@ public class CodeQuest : Application
             Done.enabled = true;
         }
         player = FindAnyObjectByType<Player>();
-        //test
-        //QuestPicking(1);
 
         if (!Worked && due > 0)
         {
@@ -105,7 +103,6 @@ public class CodeQuest : Application
     {
         int thisQuiz = (allAnswer.Count - due) + 1;
         int findQuest = thisQuiz - 1;
-        //allUI[currentQuestion].GetComponent<RectTransform>().FindChild($"Input{i}").GetComponentInChildren<TMP_InputField>().text
         int correctAnswers = 0;
         for (int i = 1; i < 6; i++)
         {
@@ -154,15 +151,6 @@ public class CodeQuest : Application
         }
         GameManager.Instance.DoActivity();
     }
-
-    /*public void Answer(int value)
-    {
-        int thisQuiz = (allAnswer.Count - due) + 1;
-        if (allAnswer[$"quiz{thisQuiz}"][value] == "1")
-        {
-
-        }
-    }*/
 
     public void FinishButton()
     {

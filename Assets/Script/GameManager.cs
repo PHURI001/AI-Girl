@@ -30,10 +30,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //test chat
-        //Instantiate(ChatObj);
-
-        //Music.Play();
     }
     private void Start()
     {
@@ -95,7 +91,6 @@ public class GameManager : MonoBehaviour
             activity = 0;
             DayText.text = "DAY " + day;
             TimeText.text = "06:00:00 AM";
-            //NextDayText.text = DayText.text;
             Airi.Event(day);
             CodeQuest.EventCheck();
 

@@ -4,7 +4,6 @@ using UnityEngine;
 public class Trash : Application
 {
     public static int TrashValue;
-    //change text in trash Canvas text
     public TextMeshProUGUI Text;
     private void Start()
     {
@@ -13,7 +12,6 @@ public class Trash : Application
 
     public void AddTrash(int value)
     {
-        //TrashValue += value;
         TrashValue += value;
     }
 
@@ -22,7 +20,6 @@ public class Trash : Application
         TrashValue = 0;
         Text.text = TrashValue.ToString();
 
-        //add activity in game manager
         GameManager.Instance.DoActivity();
     }
 }

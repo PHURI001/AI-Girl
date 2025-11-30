@@ -14,7 +14,6 @@ public class WordData
     public string Word;
     public ProgressType Type;
     public int Value;
-    //public String Description;
 }
 
 public class Chroma : Application

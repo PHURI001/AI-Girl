@@ -394,12 +394,10 @@ public class Airi : Application
 
     public void Event(int day)
     {
-        //Debug.Log("Airi Event Active");
-        AddTrash(addTrashValue);
-        /*if (day%2 == 0)
+        if (day%2 == 0)
         {
             AddTrash(addTrashValue);
-        }*/
+        }
 
         if (totalTrash != 0)
         {
