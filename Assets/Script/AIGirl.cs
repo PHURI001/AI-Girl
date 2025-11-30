@@ -65,6 +65,8 @@ public class AIGirl : MonoBehaviour
     public int Emotional { get { return emotional; } private set { emotional = Mathf.Clamp(value, 0, 10); } }
     private int trustBonding;
     public int TrustBonding { get { return trustBonding; } private set { trustBonding = Mathf.Clamp(value, 0, 10); } }
+
+    public bool IsFree = true;
     public void AiChangeStats(Enum attributeType, int value)
     {
         if (attributeType is MoodType mood)

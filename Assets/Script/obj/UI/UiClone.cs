@@ -6,6 +6,13 @@ public class SpawnCanvasUI : MonoBehaviour
 {
     public List<GameObject> uiCanvasPrefab;
 
+    AIGirl aIGirl;
+
+    private void Start()
+    {
+        aIGirl = FindFirstObjectByType<AIGirl>();
+    }
+
     public void SpawnUI(GameObject ui)
     {
         if (uiCanvasPrefab != null)
@@ -29,7 +36,7 @@ public class SpawnCanvasUI : MonoBehaviour
 
     public void MyComputer()
     {
-        if (FindFirstObjectByType<MyComputer>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<MyComputer>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[0]));
         }
@@ -37,35 +44,35 @@ public class SpawnCanvasUI : MonoBehaviour
 
     public void VsCode()
     {
-        if (FindFirstObjectByType<CodeQuest>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<CodeQuest>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[1]));
         }
     }
     public void Trash()
     {
-        if (FindFirstObjectByType<Trash>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<Trash>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[2]));
         }
     }
     public void Airi()
     {
-        if (FindFirstObjectByType<Airi>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<Airi>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[3]));
         }
     }
     public void Notflex()
     {
-        if (FindFirstObjectByType<Notflex>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<Notflex>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[4]));
         }
     }
     public void Chroma()
     {
-        if (FindFirstObjectByType<Chroma>() == null && FindFirstObjectByType<Chat>() == null)
+        if (FindFirstObjectByType<Chroma>() == null && FindFirstObjectByType<Chat>() == null && aIGirl.IsFree)
         {
             SpawnUI(Instantiate(uiCanvasPrefab[5]));
         }

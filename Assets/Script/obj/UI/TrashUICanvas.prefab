@@ -333,7 +333,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5483127777723604367}
         m_TargetAssemblyTypeName: Trash, Assembly-CSharp
-        m_MethodName: TrashDelete
+        m_MethodName: RemoveTrash
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -28,7 +29,7 @@ public class Airi : Application
 
     public TMP_InputField Input;
 
-    static private RoomType currentRoom;
+    static private RoomType currentRoom = RoomType.LivingRoom;
     public TextMeshProUGUI ShowCurrentRoom;
     private List<string> livingRoomCommand = new List<string>()
     {
@@ -51,7 +52,7 @@ public class Airi : Application
     private List<string> kitchenCommand = new List<string>()
     {
         "Airi.MoveTo(\"LivingRoom\")",
-        "Airi.Yummy(http://"
+        "Airi.Yummy("
     };
 
     private List<WordData> data = new List<WordData>();
@@ -63,6 +64,22 @@ public class Airi : Application
 
         //commandListSetUp(currentRoom);
         ShowCurrentRoom.text = currentRoom.ToString();
+
+        switch (currentRoom)
+        {
+            case RoomType.LivingRoom:
+                RoomImage[0].enabled = true;
+                break;
+            case RoomType.BathRoom:
+                RoomImage[1].enabled = true;
+                break;
+            case RoomType.Kitchen:
+                RoomImage[2].enabled = true;
+                break;
+            case RoomType.BedRoom:
+                RoomImage[3].enabled = true;
+                break;
+        }
 
         //Debug.Log(currentRoom);
 
@@ -115,6 +132,8 @@ public class Airi : Application
     {
         NeedyCanvas.enabled = false;
         SkillCanvas.enabled = false;
+        commandOpened = true;
+        CommandShow();
         if (MoodCanvas.enabled)
         {
             MoodCanvas.enabled = false;
@@ -128,6 +147,8 @@ public class Airi : Application
     {
         MoodCanvas.enabled = false;
         SkillCanvas.enabled = false;
+        commandOpened = true;
+        CommandShow();
         if (NeedyCanvas.enabled)
         {
             NeedyCanvas.enabled = false;
@@ -142,6 +163,8 @@ public class Airi : Application
     {
         MoodCanvas.enabled = false;
         NeedyCanvas.enabled = false;
+        commandOpened = true;
+        CommandShow();
         if (SkillCanvas.enabled)
         {
             SkillCanvas.enabled = false;
@@ -266,7 +289,7 @@ public class Airi : Application
             case RoomType.Kitchen:
                 foreach (string command in kitchenCommand)
                 {
-                    if (Input.text == command.ToUpper())
+                    if (Input.text.Contains(command.ToUpper()))
                     {
                         commandFound = true;
                         break;
@@ -275,7 +298,7 @@ public class Airi : Application
                 break;
         }
 
-        if (commandFound)
+        if (commandFound && aiGirl.IsFree)
         {
             if (Input.text.Contains("MOVETO"))
             {
@@ -308,8 +331,24 @@ public class Airi : Application
             }
             else if (Input.text.Contains("TV"))
             {
-                aiChangeStats(NeedyType.Fun, 15);
-                GameManager.Instance.DoActivity();
+                aiChangeStats(NeedyType.Energy, -5);
+
+                var allUI = FindObjectsByType<ThisIsUI>(FindObjectsSortMode.None);
+                foreach (var ui in allUI)
+                {
+                    if (ui.GetComponentInChildren<Airi>() != null) continue;
+                    if (ui.GetComponentInChildren<Notflex>() != null) continue;
+
+                    Destroy(ui.gameObject);
+                }
+#pragma warning disable CS0618 // Type or member is obsolete
+                SpawnCanvasUI spawnCanvasUI = FindObjectOfType<SpawnCanvasUI>();
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                spawnCanvasUI.Airi();
+                spawnCanvasUI.Notflex();
+
+                aiGirl.IsFree = false;
             }
             else if (Input.text.Contains("TAKESHOWER"))
             {
@@ -327,7 +366,7 @@ public class Airi : Application
                 {
                     for (int i = 0; i < data.Count; i++)
                     {
-                        if (Input.text.Contains(data[i].Word))
+                        if (Input.text.Contains(data[i].Word.ToUpper()))
                         {
                             aiChangeStats(data[i].Type, data[i].Value);
                             aiChangeStats(NeedyType.Hunger, 30);
@@ -345,8 +384,11 @@ public class Airi : Application
             else if (Input.text.Contains("TRASH"))
             {
                 RemoveTrash();
-                GameManager.Instance.DoActivity();
             }
+        }
+        else if (!aiGirl.IsFree)
+        {
+            Input.text = "Do Your Act Until Done.";
         }
         else
         {
@@ -402,6 +444,23 @@ public class Airi : Application
         if (totalTrash != 0)
         {
             TrashActive();
+        }
+        
+        int random = UnityEngine.Random.Range(1, 5);
+        switch (random)
+        {
+            case 1:
+                currentRoom = RoomType.LivingRoom;
+                break;
+            case 2:
+                currentRoom = RoomType.BathRoom;
+                break;
+            case 3:
+                currentRoom = RoomType.BedRoom;
+                break;
+            case 4:
+                currentRoom = RoomType.Kitchen;
+                break;
         }
     }
 }

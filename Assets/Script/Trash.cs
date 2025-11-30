@@ -17,9 +17,12 @@ public class Trash : Application
 
     public override void RemoveTrash()
     {
-        TrashValue = 0;
-        Text.text = TrashValue.ToString();
+        if (TrashValue <= 0)
+        {
+            TrashValue = 0;
+            Text.text = TrashValue.ToString();
 
-        GameManager.Instance.DoActivity();
+            GameManager.Instance.DoActivity();
+        }
     }
 }

@@ -28,7 +28,7 @@ public abstract class Application : MonoBehaviour, IDragHandler
 
     public void DeleteWindow()
     {
-        if (canvas != null)
+        if (canvas != null && aiGirl.IsFree)
             Destroy(canvas.gameObject);
     }
 
