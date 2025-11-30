@@ -42,4 +42,7 @@ public abstract class Application : MonoBehaviour, IDragHandler
                 windowPanel.anchoredPosition += move;
         }
     }
+
+    public virtual void AddTrash(int value) { }
+    public virtual void RemoveTrash() { }
 }

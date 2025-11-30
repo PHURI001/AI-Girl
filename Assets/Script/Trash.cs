@@ -10,12 +10,12 @@ public class Trash : Application
         Text.text = TrashValue.ToString();
     }
 
-    public void AddTrash(int value)
+    public override void AddTrash(int value)
     {
         TrashValue += value;
     }
 
-    public void TrashDelete()
+    public override void RemoveTrash()
     {
         TrashValue = 0;
         Text.text = TrashValue.ToString();

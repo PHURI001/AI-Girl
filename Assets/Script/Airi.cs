@@ -360,7 +360,7 @@ public class Airi : Application
     static int totalTrash;
 
     public List<Image> TrashImage;
-    public void AddTrash(int value)
+    public override void AddTrash(int value)
     {
         totalTrash += value;
         if (totalTrash > 0)
@@ -382,7 +382,7 @@ public class Airi : Application
         aiChangeStats(NeedyType.Hygiene, totalTrash * 2);
     }
 
-    public void RemoveTrash()
+    public override void RemoveTrash()
     {
         trash.AddTrash(totalTrash);
         totalTrash = 0;
