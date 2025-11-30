@@ -17,7 +17,7 @@ public class Trash : Application
 
     public override void RemoveTrash()
     {
-        if (TrashValue <= 0)
+        if (TrashValue > 0)
         {
             TrashValue = 0;
             Text.text = TrashValue.ToString();
